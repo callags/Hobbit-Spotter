@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Hobbit Spotter</string>
+    <string name="intro_pt1">Take a picture of your foot to find your inner Hobbit!</string>
 </resources>

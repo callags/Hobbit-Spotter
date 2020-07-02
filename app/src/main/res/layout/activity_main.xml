@@ -7,4 +7,34 @@
     tools:context=".MainActivity"
     android:background="@color/colorPrimary">
 
+    <TextView
+        android:id="@+id/introText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="52dp"
+        android:gravity="center"
+        android:text="@string/intro_pt1"
+        android:textColor="@color/colorString"
+        android:textSize="36sp" />
+
+    <Button
+        android:id="@+id/camButton"
+        android:layout_width="199dp"
+        android:layout_height="124dp"
+        android:layout_below="@+id/introText"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="214dp"
+        android:layout_marginEnd="105dp"
+        android:layout_marginRight="105dp"
+        android:background="@color/colorCamera"
+        android:text="Camera"
+        android:textSize="36sp" />
 </RelativeLayout>
