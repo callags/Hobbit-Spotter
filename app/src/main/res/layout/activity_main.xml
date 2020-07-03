@@ -35,6 +35,6 @@
         android:layout_marginEnd="105dp"
         android:layout_marginRight="105dp"
         android:background="@color/colorCamera"
-        android:text="Camera"
+        android:text="@string/camButton"
         android:textSize="36sp" />
 </RelativeLayout>

@@ -1,42 +1,43 @@
 package com.something.hobbitspotter;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.nfc.Tag;
 import android.os.Bundle;
-import android.text.Html;
-import android.util.Log;
+
 import android.view.SurfaceView;
+import android.view.View;
 import android.widget.Toast;
 
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase;
 import org.opencv.android.JavaCameraView;
 import org.opencv.android.OpenCVLoader;
+import org.opencv.core.Core;
 import org.opencv.core.Mat;
+import org.opencv.*;
+import org.opencv.imgproc.Imgproc;
 
-public class camera<val> extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2 {
+public class camera extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2 {
 
-    private static final int REQUEST_CODE = 1;
     CameraBridgeViewBase cameraBridgeViewBase;
     BaseLoaderCallback baseLoaderCallback;
+    boolean capture = false;
 
+    public void captureFoot (View Button) {
+        if (capture == false){
+            capture = true;
+        }
+        else {
+            capture = false;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
-        checkPermission();
-
-    }
-
-    private void checkPermission() {
         cameraStart();
+
     }
 
     private void cameraStart() {
@@ -48,9 +49,7 @@ public class camera<val> extends AppCompatActivity implements CameraBridgeViewBa
             @Override
             public void onManagerConnected(int status) {
                 super.onManagerConnected(status);
-                //timestamp at 17:11
                 switch (status) {
-
                     case BaseLoaderCallback.SUCCESS:
                         cameraBridgeViewBase.enableView();
                         break;
@@ -64,7 +63,12 @@ public class camera<val> extends AppCompatActivity implements CameraBridgeViewBa
 
     @Override
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
-        return null;
+        Mat frame = inputFrame.rgba();
+        //if (capture) {
+          //  Imgproc.cvtColor(frame, frame, Imgproc.COLOR_RGB2GRAY);
+          //  Imgproc.Canny(frame, frame, 100, 80);
+        //}
+        return frame;
     }
 
     @Override

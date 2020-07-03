@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import org.opencv.android.OpenCVLoader;
 
 public class MainActivity extends AppCompatActivity {
     //Initialize camera button

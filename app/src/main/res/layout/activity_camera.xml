@@ -6,11 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".camera"
     android:background="@color/colorPrimary">
-    
+
     <org.opencv.android.JavaCameraView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/cameraView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:visibility="visible"
-        android:id="@+id/cameraView"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/capButton"
+        android:layout_width="93dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="5dp"
+        android:onClick="captureFoot"
+        android:text="@string/capButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
