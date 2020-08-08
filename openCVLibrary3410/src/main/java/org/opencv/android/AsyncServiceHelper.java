@@ -1,6 +1,7 @@
 package org.opencv.android;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.StringTokenizer;
 
 import org.opencv.core.Core;
@@ -95,7 +96,11 @@ class AsyncServiceHelper
                         Log.d(TAG, "Init finished with status " + Status);
                         Log.d(TAG, "Unbind from service");
                         Log.d(TAG, "Calling using callback");
-                        mUserAppCallback.onManagerConnected(Status);
+                        try {
+                            mUserAppCallback.onManagerConnected(Status);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
 
@@ -105,7 +110,11 @@ class AsyncServiceHelper
                     int Status = LoaderCallbackInterface.INSTALL_CANCELED;
                     Log.d(TAG, "Init finished with status " + Status);
                     Log.d(TAG, "Calling using callback");
-                    mUserAppCallback.onManagerConnected(Status);
+                    try {
+                        mUserAppCallback.onManagerConnected(Status);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 public void wait_install()
@@ -136,7 +145,11 @@ class AsyncServiceHelper
                     int Status = LoaderCallbackInterface.INSTALL_CANCELED;
                     Log.d(TAG, "Init finished with status " + Status);
                     Log.d(TAG, "Calling using callback");
-                    mUserAppCallback.onManagerConnected(Status);
+                    try {
+                        mUserAppCallback.onManagerConnected(Status);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
                 public void wait_install()
                 {
@@ -175,7 +188,11 @@ class AsyncServiceHelper
                         Log.d(TAG, "Unbind from service");
                         mAppContext.unbindService(mServiceConnection);
                         Log.d(TAG, "Calling using callback");
-                        mUserAppCallback.onManagerConnected(LoaderCallbackInterface.INCOMPATIBLE_MANAGER_VERSION);
+                        try {
+                            mUserAppCallback.onManagerConnected(LoaderCallbackInterface.INCOMPATIBLE_MANAGER_VERSION);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                         return;
                     }
 
@@ -190,7 +207,7 @@ class AsyncServiceHelper
                                 {
                                     return "OpenCV library";
                                 }
-                                public void install() {
+                                public void install() throws IOException {
                                     Log.d(TAG, "Trying to install OpenCV lib via Google Play");
                                     try
                                     {
@@ -210,7 +227,7 @@ class AsyncServiceHelper
                                             Log.d(TAG, "Calling using callback");
                                             mUserAppCallback.onManagerConnected(LoaderCallbackInterface.MARKET_ERROR);
                                         }
-                                    } catch (RemoteException e) {
+                                    } catch (RemoteException | IOException e) {
                                         e.printStackTrace();;
                                         Log.d(TAG, "Init finished with status " + LoaderCallbackInterface.INIT_FAILED);
                                         Log.d(TAG, "Unbind from service");
@@ -225,7 +242,11 @@ class AsyncServiceHelper
                                     Log.d(TAG, "Unbind from service");
                                     mAppContext.unbindService(mServiceConnection);
                                     Log.d(TAG, "Calling using callback");
-                                    mUserAppCallback.onManagerConnected(LoaderCallbackInterface.INSTALL_CANCELED);
+                                    try {
+                                        mUserAppCallback.onManagerConnected(LoaderCallbackInterface.INSTALL_CANCELED);
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
                                 public void wait_install() {
                                     Log.e(TAG, "Installation was not started! Nothing to wait!");
@@ -245,8 +266,7 @@ class AsyncServiceHelper
                                 public void install() {
                                     Log.e(TAG, "Nothing to install we just wait current installation");
                                 }
-                                public void cancel()
-                                {
+                                public void cancel() throws IOException {
                                     Log.d(TAG, "OpenCV library installation was canceled");
                                     mLibraryInstallationProgress = false;
                                     Log.d(TAG, "Init finished with status " + LoaderCallbackInterface.INSTALL_CANCELED);
@@ -274,13 +294,17 @@ class AsyncServiceHelper
                                         Log.d(TAG, "Unbind from service");
                                         mAppContext.unbindService(mServiceConnection);
 
-                                    } catch (RemoteException e) {
+                                    } catch (RemoteException | IOException e) {
                                         e.printStackTrace();
                                         Log.d(TAG, "Init finished with status " + LoaderCallbackInterface.INIT_FAILED);
                                         Log.d(TAG, "Unbind from service");
                                         mAppContext.unbindService(mServiceConnection);
                                         Log.d(TAG, "Calling using callback");
-                                        mUserAppCallback.onManagerConnected(LoaderCallbackInterface.INIT_FAILED);
+                                        try {
+                                            mUserAppCallback.onManagerConnected(LoaderCallbackInterface.INIT_FAILED);
+                                        } catch (IOException ex) {
+                                            ex.printStackTrace();
+                                        }
                                     }
                                }
                             };
@@ -316,7 +340,11 @@ class AsyncServiceHelper
                         Log.d(TAG, "Unbind from service");
                         mAppContext.unbindService(mServiceConnection);
                         Log.d(TAG, "Calling using callback");
-                        mUserAppCallback.onManagerConnected(status);
+                        try {
+                            mUserAppCallback.onManagerConnected(status);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
                 catch (RemoteException e)
@@ -326,7 +354,11 @@ class AsyncServiceHelper
                     Log.d(TAG, "Unbind from service");
                     mAppContext.unbindService(mServiceConnection);
                     Log.d(TAG, "Calling using callback");
-                    mUserAppCallback.onManagerConnected(LoaderCallbackInterface.INIT_FAILED);
+                    try {
+                        mUserAppCallback.onManagerConnected(LoaderCallbackInterface.INIT_FAILED);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
                 }
             }
         }

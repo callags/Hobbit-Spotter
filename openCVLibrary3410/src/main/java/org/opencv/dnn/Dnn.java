@@ -3,12 +3,15 @@
 //
 package org.opencv.dnn;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
 import org.opencv.core.MatOfFloat;
 import org.opencv.core.MatOfInt;
+import org.opencv.core.MatOfRect;
 import org.opencv.core.MatOfRect2d;
 import org.opencv.core.MatOfRotatedRect;
 import org.opencv.core.Scalar;
@@ -540,11 +543,13 @@ public class Dnn {
 
     /**
      * Reads a network model stored in &lt;a href="https://pjreddie.com/darknet/"&gt;Darknet&lt;/a&gt; model files.
+     *
+     * @param tinyYoloCfg
      * @param cfgFile      path to the .cfg file with text description of the network architecture.
      * @return Network object that ready to do forward, throw an exception in failure cases.
      * @return Net object.
      */
-    public static Net readNetFromDarknet(String cfgFile) {
+    public static Net readNetFromDarknet(InputStream tinyYoloCfg, String cfgFile) {
         return new Net(readNetFromDarknet_1(cfgFile));
     }
 
@@ -559,9 +564,9 @@ public class Dnn {
      * @param bufferModel A buffer contains a content of .weights file with learned network.
      * @return Net object.
      */
-    public static Net readNetFromDarknet(MatOfByte bufferCfg, MatOfByte bufferModel) {
-        Mat bufferCfg_mat = bufferCfg;
-        Mat bufferModel_mat = bufferModel;
+    public static Net readNetFromDarknet(InputStream bufferCfg, InputStream bufferModel) throws IOException {
+        Mat bufferCfg_mat = new Mat(bufferCfg.read());
+        Mat bufferModel_mat = new Mat(bufferModel.read());
         return new Net(readNetFromDarknet_2(bufferCfg_mat.nativeObj, bufferModel_mat.nativeObj));
     }
 
@@ -889,14 +894,13 @@ public class Dnn {
 
     /**
      * Performs non maximum suppression given boxes and corresponding scores.
-     *
-     * @param bboxes a set of bounding boxes to apply NMS.
+     *  @param bboxes a set of bounding boxes to apply NMS.
      * @param scores a set of corresponding confidences.
      * @param score_threshold a threshold used to filter boxes by score.
      * @param nms_threshold a threshold used in non maximum suppression.
      * @param indices the kept indices of bboxes after NMS.
      */
-    public static void NMSBoxes(MatOfRect2d bboxes, MatOfFloat scores, float score_threshold, float nms_threshold, MatOfInt indices) {
+    public static void NMSBoxes(MatOfRect bboxes, MatOfFloat scores, float score_threshold, float nms_threshold, MatOfInt indices) {
         Mat bboxes_mat = bboxes;
         Mat scores_mat = scores;
         Mat indices_mat = indices;

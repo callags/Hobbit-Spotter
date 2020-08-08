@@ -9,8 +9,9 @@ public class Mat {
     public final long nativeObj;
 
     public Mat(long addr) {
-        if (addr == 0)
-            throw new UnsupportedOperationException("Native object address is NULL");
+        System.out.println(addr);
+        //if (addr == 0)
+            //throw new UnsupportedOperationException("Native object address is NULL");
         nativeObj = addr;
     }
 
